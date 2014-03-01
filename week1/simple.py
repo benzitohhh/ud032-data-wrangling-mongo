@@ -20,11 +20,8 @@ def parse_file(datafile):
         header = f.readline().strip().split(",")
         for i, line in enumerate(f):
             if i >= 10: break
-            item = {}
-            for j, v in enumerate(line.strip().split(",")):
-                item[header[j]] = v;
-            data.append(item)
-            
+            item = dict(zip(header, line.strip().split(",")))
+            data.append(item)            
     return data
 
 def test():
