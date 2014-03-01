@@ -8,7 +8,6 @@ Your task is as follows:
 
 Please see the test function for the expected return format
 """
-import operator
 import xlrd
 from zipfile import ZipFile
 datafile = "../2013_ERCOT_Hourly_Load_Data.xls"
@@ -46,14 +45,21 @@ def parse_file(datafile):
     # print "Convert time to a Python datetime tuple, from the Excel float:",
     # print xlrd.xldate_as_tuple(exceltime, 0)
     
-    coast_vals        = [sheet.cell_value(r, 1) for r in range(1, sheet.nrows)]
-    max_row, maxvalue = max(enumerate(coast_vals, start=1), key=operator.itemgetter(1))
-    min_row, minvalue = min(enumerate(coast_vals, start=1), key=operator.itemgetter(1))
-    max_time_excel    = sheet.cell_value(max_row, 0)
-    min_time_excel    = sheet.cell_value(min_row, 0)
-    max_time          = xlrd.xldate_as_tuple(max_time_excel, 0)
-    min_time          = xlrd.xldate_as_tuple(min_time_excel, 0)
-    avgcoast          = sum(coast_vals) / len(coast_vals)
+    coast_vals     = sheet.col_values(1, 1)
+
+    maxvalue       = max(coast_vals)
+    minvalue       = min(coast_vals)
+
+    maxpos         = coast_vals.index(maxvalue) + 1
+    minpos         = coast_vals.index(minvalue) + 1
+
+    max_time_excel = sheet.cell_value(max_row, 0)
+    min_time_excel = sheet.cell_value(min_row, 0)
+
+    max_time       = xlrd.xldate_as_tuple(max_time_excel, 0)
+    min_time       = xlrd.xldate_as_tuple(min_time_excel, 0)
+
+    avgcoast       = sum(coast_vals) / len(coast_vals)
 
     data = {
             'maxtime': max_time,
