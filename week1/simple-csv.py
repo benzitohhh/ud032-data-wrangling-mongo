@@ -13,7 +13,7 @@ import os
 import csv
 
 DATADIR = ""
-DATAFILE = "beatles-diskography.csv"
+DATAFILE = "../beatles-diskography.csv"
 
 def parse_file(datafile):
     data = []
