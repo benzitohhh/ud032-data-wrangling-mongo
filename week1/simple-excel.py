@@ -53,8 +53,8 @@ def parse_file(datafile):
     maxpos         = coast_vals.index(maxvalue) + 1
     minpos         = coast_vals.index(minvalue) + 1
 
-    max_time_excel = sheet.cell_value(max_row, 0)
-    min_time_excel = sheet.cell_value(min_row, 0)
+    max_time_excel = sheet.cell_value(maxpos, 0)
+    min_time_excel = sheet.cell_value(minpos, 0)
 
     max_time       = xlrd.xldate_as_tuple(max_time_excel, 0)
     min_time       = xlrd.xldate_as_tuple(min_time_excel, 0)
